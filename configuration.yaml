@@ -1,0 +1,190 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 32.109649
+  longitude: 34.797636
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 17.10
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Asia/Jerusalem
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+        server_host: 127.0.0.1
+  # Secrets are defined in the file secrets.yaml
+        api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  #base_url: ha.kitzy.duckdns.org:443
+  #        trusted_networks:
+  #              - 192.168.14.0/8
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+sensor:
+  - platform: yr
+    name: Weather
+    forecast: 24
+    monitored_conditions:
+      - temperature
+      - symbol
+      - humidity
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+media_player: !include media_player.yaml
+
+mqtt:
+        broker: 127.0.0.1
+        # http://hbmqtt.readthedocs.io/en/latest/references/broker.html#broker-configuration
+
+climate: !include climate.yaml
+
+google_assistant:
+  project_id: !secret google_project_id
+  client_id: !secret google_client_id
+  access_token: !secret google_access_token
+  agent_user_id: !secret google_agent_user_id
+  api_key: !secret google_api_key
+  exposed_domains:
+    - switch
+    - light
+    - cover
+    - media_player
+    - group
+    - fan
+    - scene
+    - script
+    - climate
+
+switch:
+  - platform: mqtt
+    name: "Livingroom lamp"
+    state_topic: "stat/sonoff/POWER"
+    command_topic: "cmnd/sonoff/POWER"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    retain: true
+    icon: mdi:floor-lamp
+    device_class: light
+  - platform: mqtt
+    name: "Livingroom soft light"
+    state_topic: "stat/sonoff01/POWER"
+    command_topic: "cmnd/sonoff01/POWER"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    retain: true
+    icon: mdi:lamp
+    device_class: light
+  - platform: mqtt
+    name: "Bedroom TV"
+    state_topic: "stat/sonoff02/POWER"
+    command_topic: "cmnd/sonoff02/POWER"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    retain: true
+  - platform: mqtt
+    name: "Socket 1"
+    state_topic: "stat/sonoff03/POWER"
+    command_topic: "cmnd/sonoff03/POWER"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    retain: true
+  - platform: mqtt
+    name: "Bedroom soft light"
+    state_topic: "stat/sonoff04/POWER"
+    command_topic: "cmnd/sonoff04/POWER"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    retain: true
+    icon: mdi:lamp
+    device_class: light
+  - platform: mqtt
+    name: "TEST LAMP"
+    state_topic: "stat/sonoff06/POWER"
+    command_topic: "cmnd/sonoff06/POWER"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    retain: true
+    icon: mdi:lamp
+    device_class: light
+  - platform: mqtt
+    name: "Bathroom heater"
+    state_topic: "stat/relayarray0/relay1"
+    command_topic: "cmnd/relayarray0/relay1"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    retain: true
+    device_class: heat
+  - platform: mqtt
+    name: "Bahtroom light"
+    state_topic: "stat/relayarray0/relay0"
+    command_topic: "cmnd/relayarray0/relay0"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    retain: true
+    device_class: light
+    icon: mdi:lightbulb

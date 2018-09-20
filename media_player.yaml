@@ -1,0 +1,16 @@
+  - platform: webostv
+    host: 192.168.14.89
+    mac: e8:f2:e2:be:99:bf
+    name: Living Room TV
+    timeout: 5
+    filename: webostv.conf
+    turn_on_action:
+            service: persistent_notification.create
+            data:
+                    message: "Turn on action"
+    customize:
+            sources:
+                    - livetv
+                    - youtube
+                    - makotv
+                    - netflix
