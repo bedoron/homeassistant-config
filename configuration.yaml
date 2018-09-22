@@ -111,6 +111,10 @@ switch:
     type: rm2_pro_plus
     timeout: 15
     switches:
+      livingroom_light:
+        friendly_name: "Livingroom light"
+        command_on: "sms0AA4jDSMNIw4iJgwnDA4jDSMNIw0jJgwOIyYMDSMNIyYMDiMNIw4AAWMmDA4iDSMOIyYMJgsAAAAA"
+        command_off: "siY0AA4jKAspCw4jDiIOIg4jKAwpDA8iDiIOIg4jKAwOIikMDyMOIg4jKAsPIg4AAWQnDA4iDiMAAAAA"
   - platform: mqtt
     name: "Livingroom lamp"
     state_topic: "stat/sonoff/POWER"
