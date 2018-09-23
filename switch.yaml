@@ -89,7 +89,7 @@
     retain: true
     device_class: heat
   - platform: mqtt
-    name: "Bahtroom light"
+    name: "Bathroom light"
     state_topic: "stat/relayarray0/relay0"
     command_topic: "cmnd/relayarray0/relay0"
     qos: 0

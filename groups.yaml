@@ -2,9 +2,9 @@
     name: Living Room
     view: yes
     entities:
-      - switch.living_room_lamp
-      - switch.living_room_soft_light
-      - switch.living_room_light
+      - switch.livingroom_lamp
+      - switch.livingroom_soft_light
+      - switch.livingroom_light
       - climate.living_room
       - media.living_room_speaker
       - media_player.living_room_tv
@@ -32,4 +32,4 @@
       - switch.kitchen_light
       - switch.bathroom_light
       - switch.bedroom_light
-      - switch.living_room_light
+      - switch.livingroom_light
