@@ -1,0 +1,35 @@
+  living_room:
+    name: Living Room
+    view: yes
+    entities:
+      - switch.living_room_lamp
+      - switch.living_room_soft_light
+      - switch.living_room_light
+      - climate.living_room
+      - media.living_room_speaker
+      - media_player.living_room_tv
+  bedroom:
+    name: Bedroom
+    view: yes
+    entities:
+      - switch.bedroom_light
+      - switch.bedroom_tv
+  bathroom:
+    name: Bathroom
+    view: yes
+    entities:
+      - switch.bathroom_light
+      - switch.bathroom_heater
+  kitchen:
+    name: Kitchen
+    view: yes
+    entities:
+      - switch.kitchen_light
+  lights:
+    name: Lights
+    view: yes
+    entities:
+      - switch.kitchen_light
+      - switch.bathroom_light
+      - switch.bedroom_light
+      - switch.living_room_light
