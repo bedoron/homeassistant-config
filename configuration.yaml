@@ -67,6 +67,11 @@ sensor:
       - temperature
       - symbol
       - humidity
+  - platform: broadlink
+    host: 192.168.14.55
+    mac: '78:0F:77:17:F3:9A'
+    monitored_conditions:
+      - 'temperature'
 
 # Text to speech
 tts:
@@ -104,105 +109,4 @@ google_assistant:
     - script
     - climate
 
-switch:
-  - platform: broadlink
-    host: 192.168.14.55
-    mac: '78:0F:77:17:F3:9A'
-    type: rm2_pro_plus
-    timeout: 15
-    switches:
-      livingroom_light:
-        friendly_name: "Livingroom main light"
-        command_on: "sms0AA4jDSMNIw4iJgwnDA4jDSMNIw0jJgwOIyYMDSMNIyYMDiMNIw4AAWMmDA4iDSMOIyYMJgsAAAAA"
-        command_off: "siY0AA4jKAspCw4jDiIOIg4jKAwpDA8iDiIOIg4jKAwOIikMDyMOIg4jKAsPIg4AAWQnDA4iDiMAAAAA"
-      kitchen_light:
-        friendly_name: "Kitchen light"
-        command_on: "sko0AA4jDSMOIg4iJwwOIicMDiMnDA4jDSMOIg4AAWEmDA4iDiIOIicLJwwOIw4iDiIOIiYMJwwAAAAA"
-        command_off: "siE0ABEiMwwSIjQLEyIRIhEiECI0CxIAAWAsCxEiECIQIjILNQwSIhEiESIRIjMLNgsTIhEiESIAAAAA"
-      bedroom_light:
-        friendly_name: "Bedroom light"
-        command_on: "skU0ACQLJAsNIQ0hDSENISQLDSINIiQLJQslCyULDSIkCw0hJQsNIg0hDSENAAFXDSINIQ0hDSEAAAAA"
-        command_off: "sSY0AA0iDSINIgwiJAslDA0iDSINIg0iJAsNIg0iJAslDCUMJQwNIiUMDSINIiUMDSINIg0AAVgAAAAA"
-  - platform: mqtt
-    name: "Livingroom lamp"
-    state_topic: "stat/sonoff/POWER"
-    command_topic: "cmnd/sonoff/POWER"
-    qos: 0
-    payload_on: "ON"
-    payload_off: "OFF"
-    optimistic: false
-    retain: true
-    icon: mdi:floor-lamp
-    device_class: light
-  - platform: mqtt
-    name: "Livingroom soft light"
-    state_topic: "stat/sonoff01/POWER"
-    command_topic: "cmnd/sonoff01/POWER"
-    qos: 0
-    payload_on: "ON"
-    payload_off: "OFF"
-    optimistic: false
-    retain: true
-    icon: mdi:lamp
-    device_class: light
-  - platform: mqtt
-    name: "Bedroom TV"
-    state_topic: "stat/sonoff02/POWER"
-    command_topic: "cmnd/sonoff02/POWER"
-    qos: 0
-    payload_on: "ON"
-    payload_off: "OFF"
-    optimistic: false
-    retain: true
-  - platform: mqtt
-    name: "Socket 1"
-    state_topic: "stat/sonoff03/POWER"
-    command_topic: "cmnd/sonoff03/POWER"
-    qos: 0
-    payload_on: "ON"
-    payload_off: "OFF"
-    optimistic: false
-    retain: true
-  - platform: mqtt
-    name: "Bedroom soft light"
-    state_topic: "stat/sonoff04/POWER"
-    command_topic: "cmnd/sonoff04/POWER"
-    qos: 0
-    payload_on: "ON"
-    payload_off: "OFF"
-    optimistic: false
-    retain: true
-    icon: mdi:lamp
-    device_class: light
-  - platform: mqtt
-    name: "TEST LAMP"
-    state_topic: "stat/sonoff06/POWER"
-    command_topic: "cmnd/sonoff06/POWER"
-    qos: 0
-    payload_on: "ON"
-    payload_off: "OFF"
-    optimistic: false
-    retain: true
-    icon: mdi:lamp
-    device_class: light
-  - platform: mqtt
-    name: "Bathroom heater"
-    state_topic: "stat/relayarray0/relay1"
-    command_topic: "cmnd/relayarray0/relay1"
-    qos: 0
-    payload_on: "ON"
-    payload_off: "OFF"
-    optimistic: false
-    retain: true
-    device_class: heat
-  - platform: mqtt
-    name: "Bahtroom light"
-    state_topic: "stat/relayarray0/relay0"
-    command_topic: "cmnd/relayarray0/relay0"
-    qos: 0
-    payload_on: "ON"
-    payload_off: "OFF"
-    optimistic: false
-    retain: true
-    device_class: light
-    icon: mdi:lightbulb
+switch: !include switch.yaml
