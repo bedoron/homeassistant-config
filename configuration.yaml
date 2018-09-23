@@ -119,6 +119,10 @@ switch:
         friendly_name: "Kitchen light"
         command_on: "sko0AA4jDSMOIg4iJwwOIicMDiMnDA4jDSMOIg4AAWEmDA4iDiIOIicLJwwOIw4iDiIOIiYMJwwAAAAA"
         command_off: "siE0ABEiMwwSIjQLEyIRIhEiECI0CxIAAWAsCxEiECIQIjILNQwSIhEiESIRIjMLNgsTIhEiESIAAAAA"
+      bedroom_light:
+        friendly_name: "Bedroom light"
+        command_on: "skU0ACQLJAsNIQ0hDSENISQLDSINIiQLJQslCyULDSIkCw0hJQsNIg0hDSENAAFXDSINIQ0hDSEAAAAA"
+        command_off: "sSY0AA0iDSINIgwiJAslDA0iDSINIg0iJAsNIg0iJAslDCUMJQwNIiUMDSINIiUMDSINIg0AAVgAAAAA"
   - platform: mqtt
     name: "Livingroom lamp"
     state_topic: "stat/sonoff/POWER"
