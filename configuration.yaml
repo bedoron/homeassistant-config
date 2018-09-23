@@ -115,10 +115,10 @@ switch:
         friendly_name: "Livingroom main light"
         command_on: "sms0AA4jDSMNIw4iJgwnDA4jDSMNIw0jJgwOIyYMDSMNIyYMDiMNIw4AAWMmDA4iDSMOIyYMJgsAAAAA"
         command_off: "siY0AA4jKAspCw4jDiIOIg4jKAwpDA8iDiIOIg4jKAwOIikMDyMOIg4jKAsPIg4AAWQnDA4iDiMAAAAA"
-      corridor_light:
-        friendly_name: "Corridor light"
-        command_on: "sso0AA0iJgsNIyYLDSMmDA4jDSMNIw0AAWIlDA0iDSMNIiUMJgwNIw4iDSIOIiYMJgsOIg0iDiIAAAAA"
-        command_off: "sgByAAwAAV0lCwwiDCIMIiULJgwNIQ0iDSIMIicLKAwOIQ0iDSINIikLDiIpDA4hDiINIg4hKgsPAAFfJwsNIg4hDiEqCywLDyIOIQ4iDSIrCy0LDyIOIg0iDiIrCw8iLAsPIg4iDiINIysLDwABYCgLBgAF3AAAAAAAAA=="  
+      kitchen_light:
+        friendly_name: "Kitchen light"
+        command_on: "sko0AA4jDSMOIg4iJwwOIicMDiMnDA4jDSMOIg4AAWEmDA4iDiIOIicLJwwOIw4iDiIOIiYMJwwAAAAA"
+        command_off: "siE0ABEiMwwSIjQLEyIRIhEiECI0CxIAAWAsCxEiECIQIjILNQwSIhEiESIRIjMLNgsTIhEiESIAAAAA"
   - platform: mqtt
     name: "Livingroom lamp"
     state_topic: "stat/sonoff/POWER"
