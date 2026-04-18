@@ -1,0 +1,13 @@
+project_id: "home-assistant-v2-11686"
+service_account: !include google_service_account.json
+report_state: true
+exposed_domains:
+  - switch
+  - light
+  - cover
+  - media_player
+  - group
+  - fan
+  - scene
+  - script
+#  - climate

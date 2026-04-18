@@ -1,114 +1,77 @@
-homeassistant:
-  # Name of the location where Home Assistant is running
-  name: Home
-  # Location required to calculate the time the sun rises and sets
-  latitude: 32.109649
-  longitude: 34.797636
-  # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 17.10
-  # metric for Metric, imperial for Imperial
-  unit_system: metric
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: Asia/Jerusalem
-  # Customization file
-  customize: !include customize.yaml
+# Loads default set of integrations. Do not remove.
+default_config:
 
-# Show links to resources in log and frontend
-#introduction:
-
-# Enables the frontend
+# Load frontend themes from the themes folder
 frontend:
-
-# Enables configuration UI
-config:
-
-http:
-        server_host: 127.0.0.1
-  # Secrets are defined in the file secrets.yaml
-  #        api_password: !secret http_password
-  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  #base_url: ha.kitzy.duckdns.org:443
-  #        trusted_networks:
-  #              - 192.168.14.0/8
-
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
-updater:
-  # Optional, allows Home Assistant developers to focus on popular components.
-  # include_used_components: true
-
-# Discover some devices automatically
-discovery:
-
-# Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
-
-# Enables support for tracking state changes over time
-history:
-
-# View all events in a logbook
-logbook:
-
-# Enables a map showing the location of tracked devices
-map:
-
-# Track the sun
-sun:
-
-# Weather prediction
-sensor:
-  - platform: yr
-    name: Weather
-    forecast: 24
-    monitored_conditions:
-      - temperature
-      - symbol
-      - humidity
-  - platform: broadlink
-    update_interval: 300
-    host: 192.168.14.55
-    mac: '78:0F:77:17:F3:9A'
-    name: Bedroom
-    monitored_conditions:
-      - 'temperature'
+  themes: !include_dir_merge_named themes
 
 # Text to speech
 tts:
-  - platform: google
+  - platform: google_translate
 
-# Cloud
-cloud:
+http:
+  server_port: 80
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 192.168.14.5
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
 
-group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
-
-media_player: !include media_player.yaml
-
-mqtt:
-        broker: 127.0.0.1
-        # http://hbmqtt.readthedocs.io/en/latest/references/broker.html#broker-configuration
-
+scene: !include scenes.yaml
+group: !include groups.yaml
 climate: !include climate.yaml
-
-google_assistant:
-  project_id: !secret google_project_id
-  #  client_id: !secret google_client_id
-  #access_token: !secret google_access_token
-  #agent_user_id: !secret google_agent_user_id
-  api_key: !secret google_api_key
-  exposed_domains:
-    - switch
-    - light
-    - cover
-    - media_player
-    - group
-    - fan
-    - scene
-    - script
-    - climate
-
 switch: !include switch.yaml
+rest: !include rest.yaml
+#light: !include light.yaml
+
+lovelace:
+  mode: storage
+  dashboards:
+    docker-health:
+      mode: yaml
+      title: Docker Health
+      icon: mdi:docker
+      show_in_sidebar: true
+      filename: docker-health-dashboard.yaml
+
+homeassistant:
+  name: Home
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  elevation: 17.10
+  unit_system: metric
+  time_zone: Asia/Jerusalem
+
+google_assistant: !include google_assistant_integ.yaml
+
+telegram_bot:
+  - platform: broadcast
+    api_key: !secret telegram_api_key
+    allowed_chat_ids:
+      - !secret telegram_chat_id
+
+notify:
+  - platform: telegram
+    name: "doron"
+    chat_id: !secret telegram_chat_id
+
+influxdb:
+  api_version: 1
+  host: victoriametrics.local
+  port: 80
+  max_retries: 3
+  measurement_attr: entity_id
+  tags_attributes:
+    - friendly_name
+    - unit_of_measurement
+  include:
+    domains:
+      - binary_sensor
+      - climate
+      - counter
+      - cover
+      - light
+      - sensor
+      - switch

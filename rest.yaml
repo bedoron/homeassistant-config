@@ -1,0 +1,42 @@
+- resource: http://grafana.local/api/health
+  scan_interval: 60
+  sensor:
+    - name: Grafana Service Health
+      unique_id: grafana_service_health
+      icon: mdi:grafana
+      value_template: "{{ 'online' if value_json.database == 'ok' else 'degraded' }}"
+    - name: Grafana Version
+      unique_id: grafana_version
+      icon: mdi:label
+      value_template: "{{ value_json.version }}"
+- resource: http://victoriametrics.local/api/v1/status/tsdb
+  scan_interval: 60
+  sensor:
+    - name: VictoriaMetrics Service Health
+      unique_id: victoriametrics_service_health
+      icon: mdi:database-heart
+      value_template: "{{ 'online' if value_json.status == 'success' else 'degraded' }}"
+    - name: VictoriaMetrics Total Series
+      unique_id: victoriametrics_total_series
+      icon: mdi:chart-line
+      unit_of_measurement: series
+      value_template: "{{ value_json.get('data', {}).get('totalSeries', 0) }}"
+- resource: http://vmagent.local/api/v1/targets
+  scan_interval: 60
+  sensor:
+    - name: VMAgent Service Health
+      unique_id: vmagent_service_health
+      icon: mdi:radar
+      value_template: "{{ 'online' if value_json.status == 'success' else 'degraded' }}"
+    - name: VMAgent Active Targets
+      unique_id: vmagent_active_targets
+      icon: mdi:target
+      unit_of_measurement: targets
+      value_template: "{{ value_json.get('data', {}).get('activeTargets', []) | count }}"
+    - name: VMAgent Down Targets
+      unique_id: vmagent_down_targets
+      icon: mdi:alert-circle
+      unit_of_measurement: targets
+      value_template: >-
+        {% set targets = value_json.get('data', {}).get('activeTargets', []) %}
+        {{ targets | rejectattr('health', 'equalto', 'up') | list | count }}

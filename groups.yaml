@@ -1,36 +1,39 @@
   living_room:
     name: Living Room
-    view: yes
     entities:
-      - switch.livingroom_light
-      - switch.livingroom_lamp
-      - switch.livingroom_soft_light
       - climate.living_room
       - media.living_room_speaker
       - media_player.living_room_tv
+  living_room_lights:
+    name: Living Room Lights
+    entities:
+    - switch.hall_lights
+    - switch.living_room_lights
+    - switch.dining_table_lights
+    - light.tz3000_e98krvvk_ts0012_light
+  living_area_lights:
+    name: Living Area Lights
+    entities:
+    - switch.hall_lights
+    - switch.living_room_lights
+    - switch.dining_table_lights
+    - light.tz3000_e98krvvk_ts0012_light
+    - light.tz3000_e98krvvk_ts0012_light_2
+    - switch.kitchen_lights
+  kitchen_lights:
+    name: Kitchen Lights
+    entities:
+    - light.tz3000_e98krvvk_ts0012_light_2
+    - switch.kitchen_lights
   bedroom:
     name: Bedroom
-    view: yes
-    entities:
-      - switch.bedroom_light
-      - switch.bedroom_tv
-      - sensor.bedroom_temperature
+    entities: []
   bathroom:
     name: Bathroom
-    view: yes
-    entities:
-      - switch.bathroom_light
-      - switch.bathroom_heater
+    entities: []
   kitchen:
     name: Kitchen
-    view: yes
-    entities:
-      - switch.kitchen_light
+    entities: []
   lights:
     name: Lights
-    view: yes
-    entities:
-      - switch.kitchen_light
-      - switch.bathroom_light
-      - switch.bedroom_light
-      - switch.livingroom_light
+    entities: []

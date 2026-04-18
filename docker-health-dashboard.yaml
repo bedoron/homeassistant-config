@@ -1,0 +1,28 @@
+title: Docker Health
+views:
+  - title: Docker Health
+    path: overview
+    type: panel
+    cards:
+      - type: entities
+        title: Docker Health
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: sensor.grafana_service_health
+            name: Grafana
+            secondary_info: last-changed
+          - entity: sensor.grafana_version
+            name: Grafana version
+          - entity: sensor.victoriametrics_service_health
+            name: VictoriaMetrics
+            secondary_info: last-changed
+          - entity: sensor.victoriametrics_total_series
+            name: VictoriaMetrics series
+          - entity: sensor.vmagent_service_health
+            name: VMAgent
+            secondary_info: last-changed
+          - entity: sensor.vmagent_active_targets
+            name: Active scrape targets
+          - entity: sensor.vmagent_down_targets
+            name: Down scrape targets

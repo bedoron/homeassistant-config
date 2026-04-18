@@ -1,1 +1,142 @@
-[]
+- id: '1678542340574'
+  alias: Bedroom Lamp Control
+  description: Toggle bedroom lamp via bedside buttons (short press)
+  trigger:
+    - device_id: b3f41c2567dae54f17a13661b09804a7
+      domain: zha
+      platform: device
+      type: remote_button_short_press
+      subtype: remote_button_short_press
+    - device_id: b4676c36697a1d92c6712e34654e59ca
+      domain: zha
+      platform: device
+      type: remote_button_short_press
+      subtype: remote_button_short_press
+    - device_id: 91abc98ebfa42289831926f8bec418f6
+      domain: zha
+      platform: device
+      type: remote_button_short_press
+      subtype: button
+  condition: []
+  action:
+    - action: switch.toggle
+      target:
+        entity_id: switch.tz3000_ps3dmato_ts011f_switch
+  mode: single
+
+- id: '1678542682447'
+  alias: Bedroom TV Bedside Control
+  description: Toggle bedroom TV power via bedside buttons (double press)
+  trigger:
+    - device_id: b3f41c2567dae54f17a13661b09804a7
+      domain: zha
+      platform: device
+      type: remote_button_double_press
+      subtype: remote_button_double_press
+    - device_id: b4676c36697a1d92c6712e34654e59ca
+      domain: zha
+      platform: device
+      type: remote_button_double_press
+      subtype: remote_button_double_press
+  condition: []
+  action:
+    - action: switch.toggle
+      target:
+        entity_id: switch.tasmota_1dc9f0
+  mode: single
+
+- id: '1678542928965'
+  alias: Bedroom Light Control
+  description: >-
+    Long press on bedside buttons.
+    TODO: Previously called script.bedroom_light_off (Broadlink IR).
+    That script no longer exists. Update this action to control the
+    correct bedroom light entity, or remove this automation.
+  trigger:
+    - device_id: b3f41c2567dae54f17a13661b09804a7
+      domain: zha
+      platform: device
+      type: remote_button_long_press
+      subtype: button
+    - device_id: b4676c36697a1d92c6712e34654e59ca
+      domain: zha
+      platform: device
+      type: remote_button_long_press
+      subtype: button
+    - device_id: 91abc98ebfa42289831926f8bec418f6
+      domain: zha
+      platform: device
+      type: remote_button_long_press
+      subtype: button
+  condition: []
+  action: []
+  mode: single
+
+- id: '1714732568035'
+  alias: Main Door Open
+  description: Notify via Telegram when the front door opens
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.ewelink_ds01_iaszone
+      from: 'off'
+      to: 'on'
+  condition: []
+  action:
+    - action: telegram_bot.send_message
+      data:
+        message: House door was opened
+  mode: single
+
+- id: '1714732622184'
+  alias: Main Door Closed
+  description: Notify via Telegram when the front door closes
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.ewelink_ds01_iaszone
+      from: 'on'
+      to: 'off'
+  condition: []
+  action:
+    - action: telegram_bot.send_message
+      data:
+        message: House door was closed
+  mode: single
+
+- id: '1737739575689'
+  alias: Kitchen counter lights switch action
+  description: Toggles kitchen counter lights via Zigbee button
+  triggers:
+    - device_id: d244731d5c7157fcd20d0e33a370c548
+      domain: zha
+      type: remote_button_short_press
+      subtype: button
+      trigger: device
+  conditions: []
+  actions:
+    - action: light.toggle
+      target:
+        entity_id: light.kitchen_counter_light_light
+  mode: single
+
+- id: '1744966800000'
+  alias: VictoriaMetrics infrastructure reminder
+  description: Send one Telegram reminder per day while VictoriaMetrics is unhealthy
+  triggers:
+    - trigger: time
+      at: '09:00:00'
+  conditions:
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: sensor.victoriametrics_service_health
+          state: online
+  actions:
+    - action: notify.doron
+      data:
+        message: >-
+          🛠️ Infrastructure alert: VictoriaMetrics is
+          {{ states('sensor.victoriametrics_service_health') }}.
+          Check the Docker Health dashboard in Home Assistant.
+  mode: single
