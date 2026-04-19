@@ -46,16 +46,10 @@ homeassistant:
 
 google_assistant: !include google_assistant_integ.yaml
 
-telegram_bot:
-  - platform: broadcast
-    api_key: !secret telegram_api_key
-    allowed_chat_ids:
-      - !secret telegram_chat_id
-
-notify:
-  - platform: telegram
-    name: "doron"
-    chat_id: !secret telegram_chat_id
+# Telegram bot migrated to a config entry (UI-configured) 2026-04.
+# The previous `telegram_bot:` YAML block and `notify: - platform: telegram`
+# were removed for HA 2026.8.0 compatibility. Automations now call
+# `notify.send_message` targeting `notify.home_pignonymous`.
 
 influxdb:
   api_version: 1

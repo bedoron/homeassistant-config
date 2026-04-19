@@ -83,7 +83,9 @@
       to: 'on'
   condition: []
   action:
-    - action: telegram_bot.send_message
+    - action: notify.send_message
+      target:
+        entity_id: notify.home_pignonymous
       data:
         message: House door was opened
   mode: single
@@ -99,7 +101,9 @@
       to: 'off'
   condition: []
   action:
-    - action: telegram_bot.send_message
+    - action: notify.send_message
+      target:
+        entity_id: notify.home_pignonymous
       data:
         message: House door was closed
   mode: single
@@ -133,7 +137,9 @@
           entity_id: sensor.victoriametrics_service_health
           state: online
   actions:
-    - action: notify.doron
+    - action: notify.send_message
+      target:
+        entity_id: notify.home_pignonymous
       data:
         message: >-
           🛠️ Infrastructure alert: VictoriaMetrics is
